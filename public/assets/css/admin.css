@@ -1,0 +1,82 @@
+/* Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	text-decoration: none;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	font: normal normal normal 100%/1.6 Helvetica, Arial, sans-serif;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* Elements */
+p {
+	margin-bottom: 10px;
+}
+
+a, input[type=submit] {
+	color: #333;
+	font-weight: bold;
+	background-color: inherit;
+	border: 0 none transparent;
+	cursor: pointer;
+}
+
+input[type=text], input[type=password], textarea {
+	width: 100%;
+	padding: 6px 8px;
+	border: 1px solid #333;
+	box-sizing: border-box;
+}
+
+input[type=text]:hover, input[type=text]:focus,
+input[type=password]:hover, input[type=password]:focus,
+textarea:hover, textarea:focus {
+	border-color: #999;
+}
+
+/* Aether */
+#aether {
+	width: 240px;
+	margin: 200px auto;
+}
