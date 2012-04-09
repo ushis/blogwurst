@@ -9,7 +9,7 @@
 (function($) {
 
 	/**
-	 * Grandparent plugin
+	 * Grandparent
 	 *
 	 * Returns the grandparent of a jQuery object
 	 */
@@ -18,7 +18,7 @@
 	};
 
 	/**
-	 * Login plugin
+	 * Login
 	 *
 	 * Auto focuses the right input field.
 	 *
@@ -40,6 +40,35 @@
 			} else {
 				$(this).find(settings.password).focus();
 			}
+		});
+	};
+
+	/**
+	 * Complete list
+	 *
+	 * Auto completes a ',' separated list. The first param must be an array with
+	 * valid values.
+	 */
+	$.fn.bwCompleteList = function(list) {
+		return this.each(function() {
+			$(this).autocomplete({
+				minLength: 0,
+				appendTo: $(this).parent(),
+				source: function(req, res) {
+					res($.ui.autocomplete.filter(list, req.term.split(/,\s*/).pop()));
+				},
+				focus: function() {
+					return false;
+				},
+				select: function(e, ui) {
+					var terms = this.value.split(/,\s*/);
+					terms.pop();
+					terms.push(ui.item.value);
+					terms.push('');
+					this.value = terms.join(', ');
+					return false;
+				}
+			});
 		});
 	};
 })(jQuery);

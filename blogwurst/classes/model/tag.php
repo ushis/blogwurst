@@ -50,6 +50,82 @@ class Model_Tag extends Orm\Model
 		),
 		'Orm\\Observer_Slug' => array(
 			'events' => array('before_insert'),
+			'source' => 'tag',
 		),
 	);
+
+	/**
+	 * All as array
+	 *
+	 * Returns all tags as array
+	 *
+	 * @param   void
+	 * @return  array
+	 */
+	public static function all_as_array()
+	{
+		return array_values(Arr::flatten(DB::select('tag')->from(static::$_table_name)
+		                                                  ->execute()
+		                                                  ->as_array()));
+	}
+
+	/**
+	 * From string
+	 *
+	 * Creates an array of Model_Tag instances from a string.
+	 *
+	 * @param   string  The string
+	 * @return  array()
+	 */
+	public static function from_string($str)
+	{
+		$tags = array();
+
+		foreach(explode(',', $str) as $tag)
+		{
+			if (($tag = trim($tag)) and ! in_array($tag, $tags))
+			{
+				$tags[] = $tag;
+			}
+		}
+
+		if (empty($tags))
+		{
+			return array();
+		}
+
+		$return = static::find()->where('tag', 'in', $tags)->get();
+
+		foreach($return as $i => $tag)
+		{
+			if (($j = array_search($tag, $tags)) !== false)
+			{
+				unset($tags[$j]);
+			}
+			else
+			{
+				unset($return[$i]);
+			}
+		}
+
+		foreach($tags as $tag)
+		{
+			$return[] = static::forge(array('tag' => $tag));
+		}
+
+		return $return;
+	}
+
+	/**
+	 * To string
+	 *
+	 * Returns the tag.
+	 *
+	 * @param   void
+	 * @return  string
+	 */
+	public function __toString()
+	{
+		return $this->tag;
+	}
 }

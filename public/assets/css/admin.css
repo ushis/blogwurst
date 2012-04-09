@@ -55,6 +55,11 @@ p {
 	margin-bottom: 10px;
 }
 
+label {
+	font-size: .9em;
+	cursor: pointer;
+}
+
 a, input[type=submit] {
 	color: #333;
 	background-color: inherit;
@@ -66,17 +71,26 @@ input[type=submit] {
 	font-weight: bold;
 }
 
+a:hover, input[type=submit]:hover {
+	color: #666;
+}
+
 input[type=text], input[type=password], textarea {
 	width: 100%;
 	padding: 6px 8px;
-	border: 1px solid #333;
+	border: 1px solid #999;
 	box-sizing: border-box;
 }
 
 input[type=text]:hover, input[type=text]:focus,
 input[type=password]:hover, input[type=password]:focus,
 textarea:hover, textarea:focus {
-	border-color: #999;
+	border-color: #555;
+}
+
+textarea {
+	height: 400px;
+	resize: vertical;
 }
 
 /* Helpers */
@@ -84,9 +98,46 @@ textarea:hover, textarea:focus {
 	clear: both;
 }
 
+p.empty {
+	padding-top: 100px;
+	text-align: center;
+	font-size: 5em;
+}
+
+p.empty a {
+	text-shadow: 1px 1px 0 #999;
+}
+
+ul.ui-autocomplete {
+	position: absolute;
+	margin-bottom: 50px;
+	background-color: #fff;
+}
+
+ul.ui-autocomplete li{
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+}
+
+ul.ui-autocomplete li:last-child {
+	border-bottom: 1px solid #999;
+}
+
+ul.ui-autocomplete li a {
+	display: block;
+	padding: 2px 4px;
+	font-size: .9em;
+}
+
+ul.ui-autocomplete li a.ui-state-hover,
+ul.ui-autocomplete li a.ui-state-active {
+	background-color: #d0d0d0;
+}
+
 /* Header */
 body > header {
 	width: 100%;
+	margin-bottom: 20px;
 	background-color: #333;
 	border-bottom: 1px solid #292929;
 }
@@ -124,6 +175,22 @@ body > header nav ul li a, body > header nav ul li h1 {
 
 body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	border-right: 0 none transparent;
+}
+
+/* Main */
+#wrapper {
+	width: 90%;
+	min-width: 500px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+#wrapper ul li a {
+	display: block;
+}
+
+#wrapper ul li a.del {
+	float: right;
 }
 
 /* Aether */

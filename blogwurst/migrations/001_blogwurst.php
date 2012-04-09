@@ -50,6 +50,7 @@ class Blogwurst
 		\DBUtil::create_table('articles', array(
 			'id'          => array('type' => 'int',     'constraint' => 11, 'auto_increment' => true),
 			'user_id'     => array('type' => 'int',     'constraint' => 11),
+			'upload_id'   => array('type' => 'int',     'constraint' => 11),
 			'title'       => array('type' => 'varchar', 'constraint' => 128),
 			'slug'        => array('type' => 'varchar', 'constraint' => 128),
 			'body'        => array('type' => 'text'),
