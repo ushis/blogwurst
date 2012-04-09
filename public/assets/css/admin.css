@@ -28,6 +28,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
 	font: normal normal normal 100%/1.6 Helvetica, Arial, sans-serif;
+	background-color: #f0f0f0;
 }
 
 ol, ul {
@@ -56,10 +57,13 @@ p {
 
 a, input[type=submit] {
 	color: #333;
-	font-weight: bold;
 	background-color: inherit;
 	border: 0 none transparent;
 	cursor: pointer;
+}
+
+input[type=submit] {
+	font-weight: bold;
 }
 
 input[type=text], input[type=password], textarea {
@@ -73,6 +77,53 @@ input[type=text]:hover, input[type=text]:focus,
 input[type=password]:hover, input[type=password]:focus,
 textarea:hover, textarea:focus {
 	border-color: #999;
+}
+
+/* Helpers */
+.clearfix {
+	clear: both;
+}
+
+/* Header */
+body > header {
+	width: 100%;
+	background-color: #333;
+	border-bottom: 1px solid #292929;
+}
+
+body > header nav {
+	width: 90%;
+	min-width: 500px;
+	max-width: 800px;
+	margin: 0 auto;
+	color: #c0c0c0;
+	font-size: .9em;
+}
+
+body > header nav a {
+	color: #c0c0c0;
+}
+
+body > header nav a:hover {
+	color: #f0f0f0;
+}
+
+body > header nav ul li {
+	float: left;
+}
+
+body > header nav ul.tools li {
+	float: right;
+}
+
+body > header nav ul li a, body > header nav ul li h1 {
+	display: block;
+	padding: 6px 14px 4px 14px;
+	border-right: 1px solid #292929;
+}
+
+body > header nav ul li h1, body > header nav ul.tools li:first-child a {
+	border-right: 0 none transparent;
 }
 
 /* Aether */
