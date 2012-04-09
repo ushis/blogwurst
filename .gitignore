@@ -1,0 +1,6 @@
+*.swp
+
+blogwurst/tmp/*
+blogwurst/logs/*
+blogwurst/cache/*
+blogwurst/config/crypt.php
