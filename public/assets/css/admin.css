@@ -247,7 +247,7 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 
 #selection {
 	position: absolute;
-	top: 200px;
+	top: 100px;
 	left: 50%;
 	width: 780px;
 	min-height: 400px;
@@ -272,6 +272,10 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	width: 165px;
 	padding: 4px;
 	border: 1px solid #333;
+}
+
+#selection ul li a:hover {
+	border-color: #999;
 }
 
 #selection ul li a img {
