@@ -90,7 +90,7 @@ class Model_Article extends Orm\Model
 		$usr = Auth::get_user_id();
 		$this->user_id = $usr[1];
 		$this->title = Input::post('title');
-		$this->body = Input::post('body');
+		$this->body = Vimeo::replace_links(Input::post('body'));
 
 		if (Input::post('preview') and Input::post('upload_id'))
 		{

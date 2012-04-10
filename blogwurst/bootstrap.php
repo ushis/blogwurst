@@ -9,8 +9,8 @@ require COREPATH.'bootstrap.php';
 
 
 Autoloader::add_classes(array(
-	// Add classes you want to override here
-	// Example: 'View' => APPPATH.'classes/view.php',
+	'Markdown' => APPPATH.'classes/markdown.php',
+	'Vimeo'    => APPPATH.'classes/vimeo.php',
 ));
 
 // Register the autoloader
