@@ -60,6 +60,10 @@ label {
 	cursor: pointer;
 }
 
+img {
+	vertical-align: bottom;
+}
+
 a, input[type=submit] {
 	color: #333;
 	background-color: inherit;
@@ -185,20 +189,20 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	margin: 0 auto;
 }
 
-#wrapper ul li {
+#wrapper ul.index li {
 	margin-bottom: 10px;
 }
 
-#wrapper ul li a {
+#wrapper ul.index li a {
 	display: block;
 	font-size: .9em;
 }
 
-#wrapper ul li a.del {
+#wrapper ul.index li a.del {
 	float: right;
 }
 
-#wrapper ul li img {
+#wrapper ul.index li img {
 	max-width: 300px;
 }
 
@@ -207,6 +211,7 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	height: 160px;
 	padding: 6px;
 	border: 1px solid #999;
+	background-color: #fff;
 }
 
 #wrapper form p.preview:hover {
@@ -225,8 +230,50 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	margin-bottom: 20px;
 }
 
-/* Aether */
+/* Tools */
 #aether {
 	width: 240px;
 	margin: 200px auto;
+}
+
+#dim {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: #111;
+}
+
+#selection {
+	position: absolute;
+	top: 200px;
+	left: 50%;
+	width: 780px;
+	min-height: 400px;
+	margin-left: -400px;
+	padding: 9px;
+	background-color: #fff;
+	border: 1px solid #333;
+}
+
+#selection #loader {
+	line-height: 300px;
+	text-align: center;
+}
+
+#selection ul li {
+	float: left;
+	margin: 10px;
+}
+
+#selection ul li a {
+	display: block;
+	width: 165px;
+	padding: 4px;
+	border: 1px solid #333;
+}
+
+#selection ul li a img {
+	width: 100%;
 }

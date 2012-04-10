@@ -19,15 +19,19 @@ class Controller_Admin_Uploads extends Controller_Admin
 	 *
 	 * Displays all uploads.
 	 *
-	 * @param   void
+	 * @param   string  Folder
 	 * @return  void
 	 */
-	public function action_index()
+	public function action_index($folder = null)
 	{
-		$data['uploads'] = Model_Upload::find()->order_by('filename')->get();
+		$query = Model_Upload::find()->order_by('filename');
 
+		is_null($folder) or $query->where('folder', $folder);
+
+		$data['uploads'] = $query->get();
+		$view = Input::is_ajax() ? 'choose' : 'index';
 		$this->template->title = _('uploads');
-		$this->template->content = View::forge('admin/uploads/index', $data);
+		$this->template->content = View::forge('admin/uploads/'.$view, $data);
 	}
 
 	/**

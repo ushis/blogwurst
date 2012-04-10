@@ -23,8 +23,8 @@
 	 * Auto focuses the right input field.
 	 *
 	 * Options:
-	 *   username  Selector for the username input field
-	 *   password  Selector for the password input field
+	 *   username  string  Selector for the username input field
+	 *   password  string  Selector for the password input field
 	 */
 	$.fn.bwLogin = function(options) {
 		var settings = $.extend({
@@ -100,6 +100,115 @@
 				                              img[0].naturalHeight) + 10;
 
 				wrapper.stop().animate({height: height}, duration);
+				return false;
+			});
+		});
+	};
+
+	/**
+	 * Dim
+	 *
+	 * Dims the element. First paramater is the optional duration of the animation.
+	 */
+	$.fn.bwDim = function(duration) {
+		if (duration === undefined) {
+			duration = 600;
+		}
+
+		var dim = $('<div>').attr('id', 'dim').css({opacity: 0});
+		this.append(dim.animate({opacity: 0.6}, duration));
+		return dim;
+	};
+
+	/**
+	 * Loader
+	 *
+	 * Appends a loader to the element.
+	 *
+	 * Options:
+	 *   interval  int     The interval of the loader
+	 *   dots      string  The loader string
+	 */
+	$.fn.bwLoader = function(options) {
+		var settings = $.extend({
+			interval: 200,
+			dots: '...',
+		}, options);
+
+		var loader = $('<p>').attr('id', 'loader');
+		this.append(loader);
+		var i = 0;
+
+		var load = function() {
+			i = (i > settings.dots.length - 1) ? 0 : i + 1;
+			loader.text(settings.dots.substring(0, i));
+		};
+
+		return {loader: loader, interval: setInterval(load, settings.interval)};
+	};
+
+	/**
+	 * Remove on outer click
+	 *
+	 * Removes the element on click outside of the element. Additional elements
+	 * passed to the method, will be removed too.
+	 */
+	$.fn.bwRemoveOnOuterClick = function(additional) {
+		return this.each(function() {
+			var el = $(this);
+			var outer = true;
+
+			el.hover(function() {
+				outer = false;
+			}, function() {
+				outer = true;
+			});
+
+			$(document).click(function() {
+				if ( ! outer) {
+					return true;
+				}
+
+				el.remove();
+
+				if (additional !== undefined) {
+					additional.remove();
+				}
+
+				return true;
+			});
+		});
+	};
+
+	/**
+	 * Image chooser
+	 *
+	 */
+	$.fn.bwImageChooser = function(uri, callback) {
+		return this.each(function() {
+			$(this).click(function() {
+				var dim = $('body').bwDim();
+				var selection = $('<div>').attr('id', 'selection').bwRemoveOnOuterClick(dim);
+				var loader = selection.bwLoader();
+				$('body').append(selection);
+
+				$.ajax({
+					url: uri,
+					success: function(data) {
+						selection.html(data);
+						selection.find('a').click(function() {
+							callback($(this).attr('href'), $(this).children('img').attr('src'));
+							dim.remove();
+							selection.remove();
+							return false;
+						});
+					},
+					complete: function() {
+						loader.loader.remove();
+						clearInterval(loader.interval);
+					},
+				});
+
 				return false;
 			});
 		});

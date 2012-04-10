@@ -29,4 +29,15 @@
 
 <script>
 	$('input[name=tags]').bwCompleteList(<?php echo json_encode($tags); ?>);
+	$('p.preview a').bwImageChooser('<?php echo Uri::create('admin/uploads/index/img'); ?>', function(href, src) {
+		$('p.preview a').html($('<img>').attr('src', src));
+		$('input[name=preview]').prop('checked', true);
+		$('input[name=upload_id]').val(href.substring(8));
+	});
+	$('input[name=preview]').change(function() {
+		if ( ! $(this).prop('checked')) {
+			$('p.preview a').text('<?php echo _('choose preview'); ?>');
+			$('input[name=upload_id]').val('0');
+		}
+	});
 </script>

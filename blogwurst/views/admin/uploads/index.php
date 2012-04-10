@@ -5,7 +5,7 @@
 <?php echo Form::close(); ?>
 
 <?php if ( ! empty($uploads)): ?>
-<ul class="uploads">
+<ul class="uploads index">
 	<?php foreach ($uploads as $upload): ?>
 	<li>
 		<?php echo Html::anchor('admin/uploads/delete/'.$upload->id, '×', array('class' => 'del')); ?>

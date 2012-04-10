@@ -1,5 +1,5 @@
 <?php if ( ! empty($articles)): ?>
-<ul>
+<ul class="index">
 	<?php foreach($articles as $article): ?>
 	<li>
 		<?php echo Html::anchor('admin/articles/delete/'.$article->id, '×', array('class' => 'del')); ?>

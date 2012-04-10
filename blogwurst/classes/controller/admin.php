@@ -43,9 +43,36 @@ class Controller_Admin extends Controller_Template
 			$this->template = 'aether';
 		}
 
-		Input::is_ajax() and $this->template = null;
-
 		return parent::before();
+	}
+
+	/**
+	 * After
+	 *
+	 * Dont use a template if this is an ajax request.
+	 *
+	 * @param   string|Response
+	 * @return  parent::after()
+	 */
+	public function after($response)
+	{
+		if ( ! Input::is_ajax())
+		{
+			return parent::after($response);
+		}
+
+		if (empty($response))
+		{
+			$response = $this->template->content;
+		}
+
+		if ( ! $response instanceof Response)
+		{
+			$this->response->body = $response;
+			$response = $this->response;
+		}
+
+		return parent::after($response);
 	}
 
 	/**
