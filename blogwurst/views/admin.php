@@ -55,6 +55,7 @@
 		</div>
 		<script>
 			$('div.flash').bwRemoveAfterTimeout();
+			$('a.del').click(function() { return confirm('<?php echo _('sure?'); ?>'); });
 		</script>
 	</body>
 </html>
