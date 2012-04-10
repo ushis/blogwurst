@@ -44,6 +44,29 @@
 	};
 
 	/**
+	 * Remove after timeout
+	 *
+	 * Options
+	 *   timeout   int  Timeout
+	 *   duration  int  Duration of the animation
+	 */
+	$.fn.bwRemoveAfterTimeout = function(options) {
+		var settings = $.extend({
+			timeout: 3000,
+			duration: 600,
+		}, options);
+
+		return this.each(function() {
+			var el = $(this);
+			setTimeout(function() {
+				el.slideUp(settings.duration, function() {
+					el.remove();
+				});
+			}, settings.timeout);
+		});
+	};
+
+	/**
 	 * Complete list
 	 *
 	 * Auto completes a ',' separated list. The first param must be an array with
@@ -181,6 +204,7 @@
 	/**
 	 * File chooser
 	 *
+	 * Needs an uri for the ajax request and a callback function.
 	 */
 	$.fn.bwFileChooser = function(uri, callback) {
 		return this.each(function() {
@@ -215,6 +239,8 @@
 	/**
 	 * Markdown toolbar
 	 *
+	 * Handles a markdown toolbar. Needs a selector specifying the textarea and
+	 * 2 uris for the file chooser.
 	 */
 	$.fn.bwMdToolbar = function(selector, imgUri, filesUri) {
 		var Area = function(e) {
@@ -270,12 +296,12 @@
 
 			$(this).children('li.img').bwFileChooser(imgUri, function(id, uri) {
 				var area = new Area(el);
-				area.insert('![title](' + uri + ')');
+				area.insert('![' + uri.split('/').pop().split('.').shift() + '](' + uri + ')');
 			});
 
 			$(this).children('li.file').bwFileChooser(filesUri, function(id, uri) {
 				var area = new Area(el);
-				area.insert('[title](' + uri + ')');
+				area.insert('[' + uri.split('/').pop()  + '](' + uri + ')');
 			});
 
 			$(this).children('li').click(function() {

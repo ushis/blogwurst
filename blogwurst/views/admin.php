@@ -44,7 +44,17 @@
 			<div class="clearfix"></div>
 		</header>
 		<div id="wrapper">
-			<?php echo $content; ?>
+			<?php foreach(array('notice', 'error') as $t): if ($f = Session::get_flash($t)): ?>
+			<div class="flash <?php echo $t; ?>">
+				<?php echo $f; ?>
+			</div>
+			<?php endif; endforeach; ?>
+			<div id="main">
+				<?php echo $content; ?>
+			</div>
 		</div>
+		<script>
+			$('div.flash').bwRemoveAfterTimeout();
+		</script>
 	</body>
 </html>
