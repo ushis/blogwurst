@@ -71,4 +71,37 @@
 			});
 		});
 	};
+
+	/**
+	 * Toggle img
+	 *
+	 * Hides the first image and toggles it on click. The first parameter
+	 * is a selector specifying the clickable element. The second is optional
+	 * and specifies the duration of the animation.
+	 */
+	$.fn.bwToggleImg = function(selector, duration) {
+		if (duration === undefined) {
+			duration = 600;
+		}
+
+		return this.each(function() {
+			var img = $(this).find('img');
+
+			if (img.length === 0) {
+				return;
+			}
+
+			img = img.eq(0);
+			var wrapper = img.wrap('<div>').parent().css({height: 0, overflow: 'hidden'});
+			var height = 0;
+
+			$(this).find(selector).click(function() {
+				 height = (height > 0) ? 0 : (img.width() / img[0].naturalWidth *
+				                              img[0].naturalHeight) + 10;
+
+				wrapper.stop().animate({height: height}, duration);
+				return false;
+			});
+		});
+	};
 })(jQuery);

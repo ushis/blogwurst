@@ -5,16 +5,16 @@
 <?php echo Form::close(); ?>
 
 <?php if ( ! empty($uploads)): ?>
-<ul>
+<ul class="uploads">
 	<?php foreach ($uploads as $upload): ?>
 	<li>
 		<?php echo Html::anchor('admin/uploads/delete/'.$upload->id, '×', array('class' => 'del')); ?>
 
 		<?php if ($upload->folder == Model_Upload::IMG_DIR): ?>
-			<?php echo Html::anchor('#toggle-pic', $upload->filename, array('class' => 'toggle-pic')); ?>
+			<?php echo Html::anchor('#toggle', $upload->filename, array('class' => 'toggle')); ?>
 			<?php echo Asset::img($upload->filename); ?>
 		<?php else: ?>
-			<?php echo Html::anchor('/assets/'.Model_Upload::FILES_DIR.'/'.$upload->filename, $upload->filename); ?>
+			<?php echo Html::anchor('/assets/'.$upload->folder.'/'.$upload->filename, $upload->filename); ?>
 		<?php endif; ?>
 	</li>
 	<?php endforeach; ?>
@@ -22,7 +22,6 @@
 <?php endif; ?>
 
 <script>
-	$('#file-chooser').change(function() {
-		$(this).bwGrandparent().submit();
-	});
+	$('#file-chooser').change(function() { $(this).bwGrandparent().submit(); });
+	$('ul.uploads li').bwToggleImg('a.toggle');
 </script>

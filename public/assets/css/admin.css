@@ -185,6 +185,10 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	margin: 0 auto;
 }
 
+#wrapper ul li {
+	margin-bottom: 10px;
+}
+
 #wrapper ul li a {
 	display: block;
 	font-size: .9em;
@@ -192,6 +196,10 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 
 #wrapper ul li a.del {
 	float: right;
+}
+
+#wrapper ul li img {
+	max-width: 300px;
 }
 
 #wrapper form p.preview {
