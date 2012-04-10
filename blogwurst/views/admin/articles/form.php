@@ -3,6 +3,18 @@
 		<?php echo Form::input('title', $article->title); ?>
 	</p>
 	<p>
+		<ul class="md-toolbar">
+			<li class="i">i</li>
+			<li class="b">b</li>
+			<li class="h">h</li>
+			<li class="li">li</li>
+			<li class="a">a</li>
+			<li class="img">img</li>
+			<li class="file">file</li>
+			<li class="help">
+				<?php echo Html::anchor('http://daringfireball.net/projects/markdown/syntax', '?'); ?>
+			</li>
+		</ul>
 		<?php echo Form::textarea('body', $article->body); ?>
 	</p>
 	<p>
@@ -28,11 +40,12 @@
 <?php echo Form::close(); ?>
 
 <script>
+	$('ul.md-toolbar').bwMdToolbar('textarea[name=body]', '<?php echo Uri::create('admin/uploads/index/img'); ?>', '<?php echo Uri::create('admin/uploads/index/files'); ?>');
 	$('input[name=tags]').bwCompleteList(<?php echo json_encode($tags); ?>);
-	$('p.preview a').bwImageChooser('<?php echo Uri::create('admin/uploads/index/img'); ?>', function(href, src) {
-		$('p.preview a').html($('<img>').attr('src', src));
+	$('p.preview a').bwFileChooser('<?php echo Uri::create('admin/uploads/index/img'); ?>', function(id, uri) {
+		$('p.preview a').html($('<img>').attr('src', uri));
 		$('input[name=preview]').prop('checked', true);
-		$('input[name=upload_id]').val(href.substring(8));
+		$('input[name=upload_id]').val(id);
 	});
 	$('input[name=preview]').change(function() {
 		if ( ! $(this).prop('checked')) {

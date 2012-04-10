@@ -165,14 +165,12 @@
 			});
 
 			$(document).click(function() {
-				if ( ! outer) {
-					return true;
-				}
+				if (outer) {
+					el.remove();
 
-				el.remove();
-
-				if (additional !== undefined) {
-					additional.remove();
+					if (additional !== undefined) {
+						additional.remove();
+					}
 				}
 
 				return true;
@@ -181,10 +179,10 @@
 	};
 
 	/**
-	 * Image chooser
+	 * File chooser
 	 *
 	 */
-	$.fn.bwImageChooser = function(uri, callback) {
+	$.fn.bwFileChooser = function(uri, callback) {
 		return this.each(function() {
 			$(this).click(function() {
 				var dim = $('body').bwDim();
@@ -197,7 +195,7 @@
 					success: function(data) {
 						selection.html(data);
 						selection.find('a').click(function() {
-							callback($(this).attr('href'), $(this).children('img').attr('src'));
+							callback($(this).attr('id').substr(7), $(this).attr('href'));
 							dim.remove();
 							selection.remove();
 							return false;
@@ -208,6 +206,92 @@
 						clearInterval(loader.interval);
 					},
 				});
+
+				return false;
+			});
+		});
+	};
+
+	/**
+	 * Markdown toolbar
+	 *
+	 */
+	$.fn.bwMdToolbar = function(selector, imgUri, filesUri) {
+		var Area = function(e) {
+			this.start = e.selectionStart;
+			this.end = e.selectionEnd;
+			this.txt = e.value;
+			this.el = e;
+		};
+
+		Area.prototype.setTxt = function(txt) {
+			this.el.value = txt;
+		};
+
+		Area.prototype.moveCursor = function(pos) {
+			this.el.selectionStart = this.el.selectionEnd = this.end + pos;
+		};
+
+		Area.prototype.insert = function(c) {
+			this.setTxt(this.txt.substr(0, this.start) + c + this.txt.substr(this.start));
+			this.moveCursor(c.length);
+		};
+
+		Area.prototype.wrap = function(c) {
+			if (this.start === this.end) {
+				return this.insert(c);
+			}
+
+			this.setTxt(this.txt.substr(0, this.start) + c +
+			            this.txt.substr(this.start, this.end - this.start) + c +
+			            this.txt.substr(this.end));
+
+			this.moveCursor(2 * c.length);
+		};
+
+		Area.prototype.insertBeforeFirst = function(c) {
+			var i = (this.start === 0) ? 0 : this.start - 1;
+
+			while (i > 0 && ! this.txt.charAt(i).match(/[\r\n]/)) {
+				i--;
+			}
+
+			this.start = (i === 0) ? 0 : i + 1;
+
+			if (this.txt.charAt(this.start) != c) {
+				c += ' ';
+			}
+
+			this.insert(c);
+		};
+
+		return this.each(function() {
+			var el = $(this).next(selector).get(0);
+
+			$(this).children('li.img').bwFileChooser(imgUri, function(id, uri) {
+				var area = new Area(el);
+				area.insert('![title](' + uri + ')');
+			});
+
+			$(this).children('li.file').bwFileChooser(filesUri, function(id, uri) {
+				var area = new Area(el);
+				area.insert('[title](' + uri + ')');
+			});
+
+			$(this).children('li').click(function() {
+				var area = new Area(el);
+
+				if ($(this).hasClass('i')) {
+					area.wrap('*');
+				} else if ($(this).hasClass('b')) {
+					area.wrap('**');
+				} else if($(this).hasClass('h')) {
+					area.insertBeforeFirst('#');
+				} else if($(this).hasClass('li')) {
+					area.insertBeforeFirst('-');
+				} else if($(this).hasClass('a')) {
+					area.insert('[text](uri)');
+				}
 
 				return false;
 			});

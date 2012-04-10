@@ -1,9 +1,10 @@
 <ul>
 	<?php foreach ($uploads as $upload): ?>
-	<li>
-	<?php if ($upload->folder == Model_Upload::IMG_DIR): ?>
-		<?php echo Html::anchor('#choose-'.$upload->id, Asset::img($upload->filename)); ?>
-	<?php endif; ?>
+	<li class="<?php echo $upload->folder; ?>">
+	<?php
+		$inner = ($upload->folder == Model_Upload::IMG_DIR) ? Asset::img($upload->filename) : $upload->filename;
+		echo Html::anchor('assets/'.$upload->folder.'/'.$upload->filename, $inner, array('id' => 'upload-'.$upload->id));
+	?>
 	</li>
 	<?php endforeach; ?>
 <ul>

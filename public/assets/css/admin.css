@@ -138,6 +138,27 @@ ul.ui-autocomplete li a.ui-state-active {
 	background-color: #d0d0d0;
 }
 
+ul.md-toolbar li {
+	float: left;
+	margin: 10px 10px 8px 0;
+	padding: 0px 6px;
+	font-size: .7em;
+	color: #111;
+	background-color: #fff;
+	border: 1px solid #999;
+	cursor: pointer;
+}
+
+ul.md-toolbar li:hover {
+	color: #111;
+	border: 1px solid #333;
+}
+
+ul.md-toolbar li.help {
+	background-color: transparent;
+	border: 0 none transparent;
+}
+
 /* Header */
 body > header {
 	width: 100%;
@@ -257,7 +278,7 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	min-height: 400px;
 	margin-left: -400px;
 	padding: 9px;
-	background-color: #fff;
+	background-color: #f0f0f0;
 	border: 1px solid #333;
 }
 
@@ -271,12 +292,25 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	margin: 10px;
 }
 
+#selection ul li.files {
+	float: none;
+}
+
 #selection ul li a {
 	display: block;
 	width: 165px;
 	padding: 4px;
 	border: 1px solid #333;
+	font-size: .8em;
 }
+
+#selection ul li.files a {
+	width: auto;
+	padding: 4px 8px;
+	color: #111;
+	background-color: #f0f0f0;
+}
+
 
 #selection ul li a:hover {
 	border-color: #999;
