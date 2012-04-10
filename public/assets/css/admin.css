@@ -53,10 +53,10 @@ table {
 /* Elements */
 p {
 	margin-bottom: 10px;
+	font-size: .9em;
 }
 
 label {
-	font-size: .9em;
 	cursor: pointer;
 }
 
@@ -187,10 +187,34 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 
 #wrapper ul li a {
 	display: block;
+	font-size: .9em;
 }
 
 #wrapper ul li a.del {
 	float: right;
+}
+
+#wrapper form p.preview {
+	width: 160px;
+	height: 160px;
+	padding: 6px;
+	border: 1px solid #999;
+}
+
+#wrapper form p.preview:hover {
+	border-color: #555;
+}
+
+#wrapper form p.preview a {
+	display: block;
+	height: 100%;
+	overflow: hidden;
+	line-height: 160px;
+	text-align: center;
+}
+
+#upload-form {
+	margin-bottom: 20px;
 }
 
 /* Aether */
