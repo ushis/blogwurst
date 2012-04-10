@@ -89,9 +89,9 @@ class Controller_Public extends Controller_Template
 		}
 
 		Pagination::set_config($config);
-		$data['projects'] = $query->order_by('created_at', 'desc')
+		$data['articles'] = $query->order_by('created_at', 'desc')
 		                          ->rows_offset(Pagination::$offset)
-		                          ->rows_limit(Pagination::$limit)
+		                          ->rows_limit(Pagination::$per_page)
 								  ->get();
 
 		$this->template->title = _('blog');

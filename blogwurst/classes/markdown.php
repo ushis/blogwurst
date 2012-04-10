@@ -59,9 +59,9 @@ class Markdown extends Fuel\Core\Markdown
 		foreach($matches[0] as $key => $match)
 		{
 			$str = str_replace($match, html_tag('iframe', array(
-				'src'         => $matches[$key][1],
-				'width'       => $matches[$key][2],
-				'height'      => $matches[$key][3],
+				'src'         => $matches[1][$key],
+				'width'       => $matches[2][$key],
+				'height'      => $matches[3][$key],
 				'frameborder' => '0',
 			), ''), $str);
 		}
