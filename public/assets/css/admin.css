@@ -226,6 +226,10 @@ body > header nav ul li h1, body > header nav ul.tools li:first-child a {
 	text-align: center;
 }
 
+#wrapper form p.preview a img {
+	width: 100%;
+}
+
 #upload-form {
 	margin-bottom: 20px;
 }
