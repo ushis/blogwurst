@@ -45,7 +45,6 @@ class Blogwurst
 
 		\DBUtil::create_index('users', 'username', 'username', 'unique');
 		\DBUtil::create_index('users', 'email', 'email', 'unique');
-		\DBUtil::create_index('users', 'reset_hash', 'reset_hash', 'unique');
 
 		\DBUtil::create_table('articles', array(
 			'id'          => array('type' => 'int',     'constraint' => 11, 'auto_increment' => true),
