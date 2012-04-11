@@ -270,22 +270,17 @@
 		};
 
 		Area.prototype.insertNextLine = function(c) {
-			while (this.end < this.txt.length && ! this.txt.charAt(this.end).match(/[\r\n]/)) {
-				this.end++;
-			}
-
-			this.start = this.end;
+			var i = this.txt.indexOf('\n', this.end);
+			this.start = this.end = (i === -1) ? this.txt.length : i;
 			this.insert('\n' + c + ' ');
 		};
 
 		Area.prototype.insertBeforeFirst = function(c, multiple) {
-			this.start > 0 && this.start--;
-
-			while (this.start > 0 && ! this.txt.charAt(this.start).match(/[\r\n]/)) {
-				this.start--;
+			if (this.start > 0) {
+				this.start = this.txt.lastIndexOf('\n', this.start - 1)
 			}
 
-			this.start > 0 && this.start++;
+			this.start !== 0 && this.start++;
 
 			if (this.txt.charAt(this.start) != c) {
 				c += ' ';
