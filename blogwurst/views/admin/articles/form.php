@@ -1,6 +1,6 @@
 <?php echo Form::open(); ?>
 	<p>
-		<?php echo Form::input('title', $article->title); ?>
+		<?php echo Form::input('title', $article->title, array('required')); ?>
 	</p>
 	<p>
 		<ul class="md-toolbar">
