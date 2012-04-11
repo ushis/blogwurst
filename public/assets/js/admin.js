@@ -251,9 +251,8 @@
 		};
 
 		Area.prototype.setTxt = function(txt) {
-			var mv = txt.length - this.el.value.length;
 			this.el.value = txt;
-			this.el.selectionStart = this.el.selectionEnd = this.end + mv;
+			this.el.selectionStart = this.el.selectionEnd = this.end + txt.length - this.txt.length;
 		};
 
 		Area.prototype.insert = function(c) {
