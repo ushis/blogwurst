@@ -251,16 +251,13 @@
 		};
 
 		Area.prototype.setTxt = function(txt) {
+			var mv = txt.length - this.el.value.length;
 			this.el.value = txt;
-		};
-
-		Area.prototype.moveCursor = function(pos) {
-			this.el.selectionStart = this.el.selectionEnd = this.end + pos;
+			this.el.selectionStart = this.el.selectionEnd = this.end + mv;
 		};
 
 		Area.prototype.insert = function(c) {
 			this.setTxt(this.txt.substr(0, this.start) + c + this.txt.substr(this.start));
-			this.moveCursor(c.length);
 		};
 
 		Area.prototype.wrap = function(c) {
@@ -271,21 +268,30 @@
 			this.setTxt(this.txt.substr(0, this.start) + c +
 			            this.txt.substr(this.start, this.end - this.start) + c +
 			            this.txt.substr(this.end));
-
-			this.moveCursor(2 * c.length);
 		};
 
-		Area.prototype.insertBeforeFirst = function(c) {
-			var i = (this.start === 0) ? 0 : this.start - 1;
-
-			while (i > 0 && ! this.txt.charAt(i).match(/[\r\n]/)) {
-				i--;
+		Area.prototype.insertNextLine = function(c) {
+			while (this.end < this.txt.length && ! this.txt.charAt(this.end).match(/[\r\n]/)) {
+				this.end++;
 			}
 
-			this.start = (i === 0) ? 0 : i + 1;
+			this.start = this.end;
+			this.insert('\n' + c + ' ');
+		};
+
+		Area.prototype.insertBeforeFirst = function(c, multiple) {
+			this.start > 0 && this.start--;
+
+			while (this.start > 0 && ! this.txt.charAt(this.start).match(/[\r\n]/)) {
+				this.start--;
+			}
+
+			this.start > 0 && this.start++;
 
 			if (this.txt.charAt(this.start) != c) {
 				c += ' ';
+			} else if ( ! multiple) {
+				return this.insertNextLine(c);
 			}
 
 			this.insert(c);
@@ -295,13 +301,11 @@
 			var el = $(this).next(selector).get(0);
 
 			$(this).children('li.img').bwFileChooser(imgUri, function(id, uri) {
-				var area = new Area(el);
-				area.insert('![' + uri.split('/').pop().split('.').shift() + '](' + uri + ')');
+				new Area(el).insert('![' + uri.split('/').pop().split('.').shift() + '](' + uri + ')');
 			});
 
 			$(this).children('li.file').bwFileChooser(filesUri, function(id, uri) {
-				var area = new Area(el);
-				area.insert('[' + uri.split('/').pop()  + '](' + uri + ')');
+				new Area(el).insert('[' + uri.split('/').pop()  + '](' + uri + ')');
 			});
 
 			$(this).children('li').click(function() {
@@ -312,11 +316,13 @@
 				} else if ($(this).hasClass('b')) {
 					area.wrap('**');
 				} else if($(this).hasClass('h')) {
-					area.insertBeforeFirst('#');
+					area.insertBeforeFirst('#', true);
 				} else if($(this).hasClass('li')) {
-					area.insertBeforeFirst('-');
+					area.insertBeforeFirst('-', false);
 				} else if($(this).hasClass('a')) {
 					area.insert('[text](uri)');
+				} else if ($(this).hasClass('help')) {
+					return true;
 				}
 
 				return false;
